@@ -12,7 +12,7 @@ var conn = mysql.createConnection({
     host:'localhost',
     user : 'root',
     password: '',
-    database : 'role'
+    database : 'role_auth'
 });
 
 conn.connect(function(err){
@@ -22,11 +22,13 @@ conn.connect(function(err){
 });
 
 app.get('/',function(req,res){
-    conn.query("SELECT * from agent", function(err,result,field){
-        if(!err){
-            console.log(result);
-        }
-    })
+   res.send("You have come to right place mortal");
+   
+    // conn.query("SELECT * from agent", function(err,result,field){
+     //   if(!err){
+       //     console.log(result);
+       // }
+   // })
     
 });
 
@@ -42,7 +44,7 @@ app.post('/post/insert/agent',urlencoder,function(req,res){
     var role3 = req.body.role3;
 
     if (length==2){
-    var query = "INSERT INTO agent (Agent , Role1) values(?,?)";
+    var query = "INSERT INTO role (AgentName , Role1) values(?,?)";
     conn.query(query,[name, role1],function(err,result,field){
         if(!err){
             console.log("Query Successful");
@@ -52,7 +54,7 @@ app.post('/post/insert/agent',urlencoder,function(req,res){
     });
     }
     else if (length==3){
-        var query = "INSERT INTO agent (Agent , Role1 ,Role2) values(?,?,?)";
+        var query = "INSERT INTO role (AgentName , Role1 ,Role2) values(?,?,?)";
         conn.query(query,[name, role1,role2],function(err,result,field){
             if(!err){
                 console.log("Query Successful");
@@ -62,7 +64,7 @@ app.post('/post/insert/agent',urlencoder,function(req,res){
         });
         }
         else if (length==4){
-            var query = "INSERT INTO agent (Agent , Role1,Role2, Role3) values(?,?,?,?)";
+            var query = "INSERT INTO role (AgentName , Role1,Role2, Role3) values(?,?,?,?)";
             conn.query(query,[name, role1, role2, role3],function(err,result,field){
                 if(!err){
                     console.log("Query Successful");
@@ -75,7 +77,7 @@ app.post('/post/insert/agent',urlencoder,function(req,res){
 
 });
 
-app.post('/post/insert/role', urlencoder , function(req,res){
+app.post('/post/insert/permission', urlencoder , function(req,res){
     var role = req.body.role;
     var resource = req.body.resource;
     var permission = req.body.permit;
@@ -83,7 +85,7 @@ app.post('/post/insert/role', urlencoder , function(req,res){
     console.log(resource);
     console.log(permission);
 
-    var query1 = "INSERT INTO role (Role,Resoruces,Permission) values(?,?,?)";
+    var query1 = "INSERT INTO permission (Role,Resoruces,Permission) values(?,?,?)";
 
     conn.query(query1,[role,resource,permission],function(err , result , field){
         if(!err){
@@ -107,9 +109,9 @@ app.post('/post/find/userpermit/', urlencoder,function(res,req){
     console.log(resoruce);
     console.log(permission);
 
-    var query = "SELECT  Role1  from agent where agent = ?";
-    var query1 = "SELECT Role2 from agent where agent = ?";
-    var query2 = "SELECT Role3 from agent where agent = ?";
+    var query = "SELECT  Role1  from role where AgentName = ?";
+    var query1 = "SELECT Role2 from role where AgentName = ?";
+    var query2 = "SELECT Role3 from role where AgentName = ?";
 
     conn.query(query, [name], function(err,result,field){
 
@@ -119,7 +121,7 @@ app.post('/post/find/userpermit/', urlencoder,function(res,req){
             console.log("Query executed");
             console.log(result[0].Role1);
             if (result[0].Role1!=''){
-                var query11 = "SELECT COUNT(Permission) as Count from role where role =? and Resoruces =? and Permission = ?";
+                var query11 = "SELECT COUNT(Permission) as Count from permission where role =? and Resoruces =? and Permission = ?";
                 conn.query(query11, [result[0].Role1, resoruce, permission],function(err, result11, field){
                     if(!err){
                         console.log(result11[0].Count);
