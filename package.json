@@ -1,0 +1,19 @@
+{
+  "name": "role_auth",
+  "version": "1.0.0",
+  "description": "A role based authorization",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "Role",
+    "Authorization"
+  ],
+  "author": "Altaf Hussain",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mysql": "^2.17.1"
+  }
+}
