@@ -16,25 +16,83 @@
     
     <div class="tab-content">
       <div id="signup">   
-        <h1>Sign Up for Drivers</h1>
+        <h1>ADD DELETE USER , ROLE, PERMISSION</h1>
         
+        <div class="top-row">
+        <div id= "main">
+          <div class="field-wrap">
+            <label>
+              Agent Name<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="agent_name" id="agent_name"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Role<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="role" id = "role1" class = "role"/>
+          </div>
+        </div>
+        </div>
+         <button id = "add_role">Add Roles</button>
+        <div class="field-wrap">
+        </div>
+        <button id = "add_user"> Add User <button>
+
+          <div class="top-row">
+          <div class="field-wrap">
+          <div id = "main2">
+            <label>
+              Role<span class="req">*</span>
+            </label>
+            <input type="text" required autocomplete="off" name="role_name" id="role_name"/>
+          </div>
+          <div class="field-wrap">
+            <label>
+              Resource<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="resoruce1" id = "resource1" class = "resource"/>
+          </div>
+            <div class="field-wrap">
+            <label>
+              PERMISSION<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="permission1" id = "permission1" class = "permission"/>
+          </div>
+        </div>
+        </div>
+        </div>
+         <button id = "add_more_privilege">Add More Privelege</button>
+        <div class="field-wrap">
+        <button id = "submit_privilege"> Submit Privelege <button>
+ 
         <div class="top-row">
           <div class="field-wrap">
             <label>
-              First Name<span class="req">*</span>
+             Agent Name<span class="req">*</span>
             </label>
-            <input type="text" required autocomplete="off" name="first_name" id="first_name"/>
+            <input type="text" required autocomplete="off" name="search_agent_name" id="search_agent_name"/>
           </div>
           <div class="field-wrap">
             <label>
-              Last Name<span class="req">*</span>
+              Resource<span class="req">*</span>
             </label>
-            <input type="text"required autocomplete="off" name="last_name" id = "last_name"/>
+            <input type="text"required autocomplete="off" name="search_resoruce" id = "search_resource" class = "resource_name"/>
+          </div>
+            <div class="field-wrap">
+            <label>
+              PERMISSION<span class="req">*</span>
+            </label>
+            <input type="text"required autocomplete="off" name="search_permission" id = "search_permission" class = "permission_name"/>
           </div>
         </div>
+        </div>
+         <button id= "sp" >Search for Permission</button>
+         <div id = "search_result"> </div>
 
-        <div class="field-wrap">
-          <label>
+
+        
+   <!--       <label>
             Email Address<span class="req">*</span>
           </label>
           <input type="email"required autocomplete="off" name="email" id = "email"/>
@@ -81,6 +139,8 @@
     </div><!-- tab-content -->
     
 </div> <!-- /form -->
+
+
 <script type="text/javascript" src ="./js/login_animation.js"></script>
 <script type="text/javascript" src ="./js/login.js"></script>
 </body>
