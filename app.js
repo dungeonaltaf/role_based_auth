@@ -3,7 +3,7 @@ var mysql = require('mysql');
 const bodyparser = require('body-parser');
 var urlencoder = bodyparser.urlencoded({extended:true});
 var app = express();
-const port = 3000;
+const port = 80;
 var route = require('./routes/route');
 var path = require('path');
 
