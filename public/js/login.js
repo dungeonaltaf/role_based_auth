@@ -80,8 +80,21 @@ $(document).ready(function(){
           newInput.name= "role"+count_role;
           newInput.id = "role"+count_role;
           newInput.className = "role";
+          var li3 = document.createElement("li");
+          li3.id = "li3"+count_role;
+
+          var label_role = document.createElement("label");
+          label_role.innerText = "Role";
+
+          var span_role = document.createElement("span");
+          span_role.innerText = "Enter the role you want to assign";
           count_role++;
-          document.getElementById('main').appendChild(newInput);
+
+          document.getElementById('add_user_list').appendChild(li3);
+          document.getElementById(li3.id).appendChild(label_role);
+          document.getElementById(li3.id).appendChild(newInput);
+          document.getElementById(li3.id).appendChild(span_role);
+
         });
 
         $("#add_more_privilege").click(function(){
@@ -90,19 +103,42 @@ $(document).ready(function(){
           newPermission.name = "permission"+count_permission;
           newPermission.id = "permission"+count_permission;
           newPermission.className = "permission";
-          newPermission.placeholder = "Permission";
+        
 
           var newResoruce = document.createElement("input");
           newResoruce.type = "text";
           newResoruce.name = "resource"+count_permission;
           newResoruce.id = "resource"+count_permission;
           newResoruce.className = "resource";
-          newResoruce.placeholder = "Resource";
+    
 
+          var li = document.createElement("li");
+          li.id = "li"+count_permission;
+          var li1 = document.createElement("li");
+          li1.id = "li1"+count_permission;
+
+          var label_resource = document.createElement("label");
+          label_resource.innerText = "Resource";
+          var label_permission = document.createElement("label");
+          label_permission.innerText= "Permission";
+
+          var span_permission =document.createElement("span");
+          span_permission.innerText = "Add Permission to it";
+
+          var span_resource = document.createElement("span");
+          span_resource.innerText = "Add Resource to it";
+          
           count_permission++;
           console.log(count_permission);
-          document.getElementById('main2').appendChild(newResoruce);
-          document.getElementById('main2').appendChild(newPermission);
+          document.getElementById('add_res_list').appendChild(li);
+          document.getElementById('add_res_list').appendChild(li1);
+          document.getElementById(li.id).appendChild(label_resource);
+          document.getElementById(li1.id).appendChild(label_permission);
+          document.getElementById(li.id).appendChild(newResoruce);
+          document.getElementById(li1.id).appendChild(newPermission);
+          document.getElementById(li.id).appendChild(span_resource);
+          document.getElementById(li1.id).appendChild(span_permission);
+        
 
         });
       
