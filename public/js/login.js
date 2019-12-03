@@ -20,7 +20,7 @@ $(document).ready(function(){
 
         $.ajax(  {
                 type: "POST",
-                url: "http://localhost:80/post/insert/agent/",
+                url: "http://52.66.196.67/post/insert/agent/",
                 headers:{
                 "content-type": "application/x-www-form-urlencoded"
                 },
