@@ -194,9 +194,70 @@ app.post('/post/find/userpermit/', urlencoder,function(res,req){
    
 });
 
+app.post('/delete/role/role', urlencoder, function(res,req){
+
+    var role = res.body.role;
+
+    var delete_role_from_permission_query = "DELETE FROM resource_permission where role_name = ?";
+    conn.query(delete_role_from_permission_query, [role], function(err,result,field){
+        if (!err){
+            console.log(result);
+        }
+        else{
+            console.log(err);
+        }
+
+    });
+
+    var delete_role_from_agent_query = "DELETE FROM agent_role where Role= ?";
+    conn.query(delete_role_from_agent_query, [role], function(err,result,field){
+
+        if (!err){
+            console.log(result);
+        }
+        else{
+            console.log(err);
+        }
+    })
+
+
+});
+
+app.post('/delete/role/agent', urlencoder, function(res,req){
+    console.log("Incoming delete request");
+    var agent_name = res.body.agent_name;
+    var role = res.body.role;
+
+    var select_UID = "SELECT UID from agent_name where agent_name =?";
+
+    conn.query(select_UID,[agent_name],function(err,result,field){
+
+        if (!err){
+            console.log(result);
+
+        }
+        else{
+            console.log(err);
+        }
+    var UID    = result[0].UID;
+    var delete_agent_role_query = "DELETE FROM agent_role where Role=? and UID = ?";
+
+    conn.query(delete_agent_role_query, [role, UID], function(err,result,field){
+            if (!err){
+                console.log(result);
+            }
+            else{
+                console.log(err);
+            }      
+    });
+});
+
+
+});
 app.use('/api', route);
 app.listen(port, function(){
     console.log("Connected on port"+port);
 });
+
 
 module.exports = conn;

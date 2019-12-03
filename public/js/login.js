@@ -19,7 +19,7 @@ $(document).ready(function(){
         }
 
         $.ajax(  {
-                url: "http://localhost:3000/post/insert/agent",
+                url: "http://localhost:80/post/insert/agent",
                 headers:{
                 "content-type": "application/x-www-form-urlencoded"
                 },
@@ -57,7 +57,7 @@ $(document).ready(function(){
 
   
           $.ajax(  {
-                  url: "http://localhost:3000/post/insert/permission",
+                  url: "http://localhost:80/post/insert/permission",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
@@ -151,7 +151,7 @@ $(document).ready(function(){
 
   
           $.ajax(  {
-                  url: "http://localhost:3000/post/find/userpermit",
+                  url: "http://localhost:80/post/find/userpermit",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
@@ -166,6 +166,29 @@ $(document).ready(function(){
                   });
           
           });
+
+          $("#delete_role_agent_btn").click(function () { //user clicks button
+            console.log("DELET ROLE AGENT IS CALLED");
+    
+            var agent_name = $('#delete_role_agent').val();
+            var role = $('#delete_role_role').val();
+
+            $.ajax(  {
+                    url: "http://localhost:80/delete/role/agent",
+                    headers:{
+                    "content-type": "application/x-www-form-urlencoded"
+                    },
+                    method: "POST",
+                    data: {
+
+                      agent_name : agent_name,
+                      role: role
+                    }
+                    }).done(function (response) {
+                    console.log(response);
+                    });
+            
+            });
 
 
 
