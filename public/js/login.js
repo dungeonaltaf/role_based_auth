@@ -167,7 +167,9 @@ $(document).ready(function(){
                       resource: search_resource
                   }
                   }).done(function (response) {
-                    $('#res_server').html(response);
+                    var res = document.createElement("p");
+                   res.innerText = "Resource";
+                   document.getElementById('res_server_div').appendChild(res);
                   console.log(response);
                   });
           
