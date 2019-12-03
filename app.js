@@ -175,6 +175,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                         if (result[0].Count>=1){
                             console.log("Query approved");
                             permission_string = "Permitted";
+                            req.send(permission_string);
                             
                         } 
                         else {
@@ -196,7 +197,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     });
     });
     console.log("permission_string is="+permission_string);
-  //  req.send(permission_string);
+    
    
 });
 
