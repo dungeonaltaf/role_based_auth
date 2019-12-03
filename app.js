@@ -146,10 +146,11 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     var uid;
     var select_uid_from_name = "SELECT UID from agent_name where agent_name = ?"
     conn.query(select_uid_from_name, [name], function(err,result_uid,field){
-        if (!err){
+        if (!err && result_uid.length>0){
             console.log(result_uid[0].UID);
         }
         else{
+            req.end("Agent not present in the system!");
             console.log(err);
         }
    
@@ -161,7 +162,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
         console.log("permission inputed is"+ permission);
         console.log("affectedRows are " +result_role_name.length);
         if (!err && result_role_name.length>0){
-            
+            req.end("Resource or permission not in the system");
             console.log(result_role_name[0].role_name);
             console.log("The uid of the agent is again = "+ result_uid[0].UID);
             var uid = result_uid[0].UID;
@@ -178,12 +179,13 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                             console.log("Query approved");
                             permission_string = "Permitted";
                             console.log(permission_string);
-                            req.send(permission_string);
+                            req.end(permission_string);
                             
                         } 
                         else {
                             permission_string = "Not Permitted";
                             console.log(permission_string);
+                            req.end(permission_string);
                         }
                        
                     }
