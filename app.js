@@ -179,6 +179,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                         else {
                             permission_string = "Not Permitted";
                         }
+                        req.send(permission_string);
                     }
                     else{
                         console.log(err);
@@ -194,7 +195,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     });
     });
     console.log(permission_string);
-    req.send(permission_string);
+   
    
 });
 
