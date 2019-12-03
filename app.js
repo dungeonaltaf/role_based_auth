@@ -167,16 +167,17 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
             var num_rows = result_role_name.length;
             for (var i=0;i<num_rows;i++){
                 conn.query(select_uid_role, [uid, result_role_name[i].role_name], function(err,result,field){
+                    var permission_string ;
                     if (!err){
                         console.log(result);
                         console.log(result[0].Count);
                         if (result[0].Count>=1){
                             console.log("Query approved");
-                            req.send("You have the permission!");
+                            permission_string = "Permitted";
                             
                         } 
                         else {
-                            req.send("You don't have the permission");
+                            permission_string = "Not Permitted";
                         }
                     }
                     else{
@@ -192,6 +193,8 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
         }
     });
     });
+    console.log(permission_string);
+    req.send(permission_string);
    
 });
 
