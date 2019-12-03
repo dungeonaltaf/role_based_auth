@@ -168,7 +168,7 @@ $(document).ready(function(){
                   }
                   }).done(function (response) {
                     var res = document.createElement("p");
-                   res.innerText = "Resource";
+                   res.innerText = this.response;
                    document.getElementById('res_server_div').appendChild(res);
                   console.log(response);
                   });
