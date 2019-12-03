@@ -6,6 +6,7 @@ var app = express();
 const port = 80;
 var route = require('./routes/route');
 var path = require('path');
+var cors = require('cors');
 
 app.use(express.static(__dirname+'/public'));
 
@@ -33,7 +34,7 @@ app.get('/',function(req,res){
     
 });
 
-app.post('/post/insert/agent/',urlencoder,function(req,res){
+app.post('/post/insert/agent/',cors(),urlencoder,function(req,res){
   // var req_length = Object.keys(req.body).length;
     //console.log("Length="+req_length);
     console.log(req.body.agent_name);
@@ -88,7 +89,7 @@ app.post('/post/insert/agent/',urlencoder,function(req,res){
 
 });
 
-app.post('/post/insert/permission', urlencoder , function(req,res){
+app.post('/post/insert/permission',cors(), urlencoder , function(req,res){
     console.log(req.body.role_name);
     console.log("resources are="+req.body.resource);
     console.log("permissions are= "+req.body.permission);
@@ -131,7 +132,7 @@ app.post('/post/insert/permission', urlencoder , function(req,res){
     });
 
 
-app.post('/post/find/userpermit/', urlencoder,function(res,req){
+app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
 
     console.log("We are searching !!");
     var name = res.body.name;
@@ -194,7 +195,7 @@ app.post('/post/find/userpermit/', urlencoder,function(res,req){
    
 });
 
-app.post('/delete/role/role', urlencoder, function(res,req){
+app.post('/delete/role/role', cors(), urlencoder, function(res,req){
 
     var role = res.body.role;
 
@@ -223,7 +224,7 @@ app.post('/delete/role/role', urlencoder, function(res,req){
 
 });
 
-app.post('/delete/role/agent', urlencoder, function(res,req){
+app.post('/delete/role/agent', cors(), urlencoder, function(res,req){
     console.log("Incoming delete request");
     var agent_name = res.body.agent_name;
     var role = res.body.role;
@@ -253,7 +254,7 @@ app.post('/delete/role/agent', urlencoder, function(res,req){
 });
 
 
-app.get('/get/agent/roles', urlencoder , function(req,res){
+app.get('/get/agent/roles', cors() ,urlencoder , function(req,res){
 
     var agent_name = req.body.agent_name;
     var select_agent_uid = "SELECT UID from agent_name where agent_name  = ?";
