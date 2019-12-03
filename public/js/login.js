@@ -59,7 +59,7 @@ $(document).ready(function(){
   
           $.ajax(  {
                   type: "POST",
-                  url: "http://localhost:80/post/insert/permission",
+                  url: "http://52.66.196.67/post/insert/permission",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
@@ -154,7 +154,7 @@ $(document).ready(function(){
   
           $.ajax(  {
                   type: "POST",
-                  url: "http://localhost:80/post/find/userpermit",
+                  url: "http://52.66.196.67/post/find/userpermit",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
@@ -178,7 +178,7 @@ $(document).ready(function(){
 
             $.ajax(  {
                     type: "POST",
-                    url: "http://localhost:80/delete/role/agent",
+                    url: "http://52.66.196.67/delete/role/agent",
                     headers:{
                     "content-type": "application/x-www-form-urlencoded"
                     },
