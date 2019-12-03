@@ -151,6 +151,8 @@ $(document).ready(function(){
           var search_permission = $('#search_permission').val();
           var search_resource = $('#search_resource').val();
 
+          console.log("search permission"+search_permission);
+          console.log("search result is"+ search_resource);
   
           $.ajax(  {
                   type: "POST",
