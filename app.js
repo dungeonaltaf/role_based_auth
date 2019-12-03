@@ -159,6 +159,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     conn.query(select_resource_permission, [resource, permission], function(err,result_role_name,field){
         console.log("resource inputed is= "+ resource);
         console.log("permission inputed is"+ permission);
+        console.log("affectedRows are " +result_role_name.affectedRows);
         if (!err && result_role_name.affectedRows>0){
             
             console.log(result_role_name[0].role_name);
@@ -171,8 +172,8 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                 conn.query(select_uid_role, [uid, result_role_name[i].role_name], function(err,result,field){
                     
                     if (!err){
-                        console.log(result);
-                        console.log(result[0].Count);
+                        console.log("result is"+result);
+                        console.log("result count is"+result[0].Count);
                         if (result[0].Count>=1){
                             console.log("Query approved");
                             permission_string = "Permitted";
@@ -182,9 +183,12 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                         } 
                         else {
                             permission_string = "Not Permitted";
+                            console.log(permission_string);
                         }
                        
                     }
+
+
                     else{
                         console.log(err);
                     }
