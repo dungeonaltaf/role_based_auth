@@ -159,8 +159,8 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     conn.query(select_resource_permission, [resource, permission], function(err,result_role_name,field){
         console.log("resource inputed is= "+ resource);
         console.log("permission inputed is"+ permission);
-        console.log("affectedRows are " +result_role_name.affectedRows);
-        if (!err && result_role_name.affectedRows>0){
+        console.log("affectedRows are " +result_role_name.length);
+        if (!err && result_role_name.length>0){
             
             console.log(result_role_name[0].role_name);
             console.log("The uid of the agent is again = "+ result_uid[0].UID);
