@@ -154,7 +154,7 @@ $(document).ready(function(){
   
           $.ajax(  {
                   type: "POST",
-                  url: "http://52.66.196.67/post/find/userpermit",
+                  url: "http://52.66.196.67/post/find/userpermit/",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
