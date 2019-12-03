@@ -147,7 +147,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     var select_uid_from_name = "SELECT UID from agent_name where agent_name = ?"
     conn.query(select_uid_from_name, [name], function(err,result_uid,field){
         if (!err && result_uid.length>0){
-            console.log(result_uid[0].UID);
+            console.log("UID OF THE AGENT IS"+result_uid[0].UID);
         }
         else{
             req.end("Agent not present in the system!");
