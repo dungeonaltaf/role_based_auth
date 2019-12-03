@@ -167,6 +167,7 @@ $(document).ready(function(){
                       resource: search_resource
                   }
                   }).done(function (response) {
+                    $('#res_server').innerText = response;
                   console.log(response);
                   });
           
