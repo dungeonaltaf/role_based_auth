@@ -134,7 +134,7 @@ app.post('/post/insert/permission',cors(), urlencoder , function(req,res){
 
 app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     var permission_string ;
-    
+
     console.log("We are searching !!");
     var name = res.body.name;
     var resource = res.body.resource;
@@ -195,8 +195,8 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
         }
     });
     });
-    console.log(permission_string);
-    req.send(permission_string);
+    console.log("permission_string is="+permission_string);
+  //  req.send(permission_string);
    
 });
 
