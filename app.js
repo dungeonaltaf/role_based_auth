@@ -133,7 +133,8 @@ app.post('/post/insert/permission',cors(), urlencoder , function(req,res){
 
 
 app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
-
+    var permission_string ;
+    
     console.log("We are searching !!");
     var name = res.body.name;
     var resource = res.body.resource;
@@ -167,7 +168,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
             var num_rows = result_role_name.length;
             for (var i=0;i<num_rows;i++){
                 conn.query(select_uid_role, [uid, result_role_name[i].role_name], function(err,result,field){
-                    var permission_string ;
+                    
                     if (!err){
                         console.log(result);
                         console.log(result[0].Count);
@@ -179,7 +180,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                         else {
                             permission_string = "Not Permitted";
                         }
-                        req.send(permission_string);
+                       
                     }
                     else{
                         console.log(err);
@@ -195,7 +196,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     });
     });
     console.log(permission_string);
-   
+    req.send(permission_string);
    
 });
 
