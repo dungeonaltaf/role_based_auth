@@ -1,30 +1,25 @@
-//sending credentials to server for creating customer session
-$(document).ready(function(){ 
-
-  var count_role=2;
-  var count_permission = 2;
-    
+ /*
     $("#add_user").click(function () { //user clicks button
-        console.log("Button signin is clicke");
+        console.log("Button add_user");
 
         var agent_name = $('#agent_name').val();
+        console.log("agent_name"+agent_name);
         var $items = $('.role');
         var length = $items.length;
         console.log(length);
         var role =[];
         for (var i=0;i<length;i++){
           role[i] = $('#role'+(i+1)).val();
-          console.log(role[i]);
+          console.log("Role="+role[i]);
           count_role =2;
         }
 
         $.ajax(  {
-                type: "POST",
-                url: "http://localhost:80/post/insert/agent/",
+                url: "http://localhost:3000/post/insert/agent",
                 headers:{
                 "content-type": "application/x-www-form-urlencoded"
                 },
-                
+                method: "POST",
                 data: {
                     agent_name : agent_name,
                     role :role,
@@ -36,9 +31,11 @@ $(document).ready(function(){
         });
 
         $("#submit_privilege").click(function () { //user clicks button
-          console.log("Button signin is clicke");
+          console.log("Button submit privelege");
+          console.log(count_role);
           count_role =2;
           var role_name = $('#role_name').val();
+          console.log("role_name"+ role_name);
           var $permission = $('.permission');
           var $resoruce = $('.resource')
           var permission_length = $permission.length;
@@ -46,24 +43,23 @@ $(document).ready(function(){
           var permission =[];
           for (var i=0;i<permission_length;i++){
             permission[i] = $('#permission'+(i+1)).val();
-            console.log(permission[i]);
+            console.log("permission to be added"+permission[i]);
           }
           var resource_length = $resoruce.length;
           console.log(resource_length);
           var resource =[];
           for (var i=0;i<resource_length;i++){
             resource[i] = $('#resource'+(i+1)).val();
-            console.log(resource[i]);
+            console.log("resource to be added"+resource[i]);
           }
 
   
           $.ajax(  {
-                  type: "POST",
-                  url: "http://localhost:80/post/insert/permission",
+                  url: "http://localhost:3000/post/insert/permission",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
-                  
+                  method: "POST",
                   data: {
                       role_name : role_name,
                       resource :resource,
@@ -76,28 +72,7 @@ $(document).ready(function(){
           });
       
 
-        $("#add_role").click(function (){
-          var newInput = document.createElement("input");
-          newInput.type="text";
-          newInput.name= "role"+count_role;
-          newInput.id = "role"+count_role;
-          newInput.className = "role";
-          var li3 = document.createElement("li");
-          li3.id = "li3"+count_role;
-
-          var label_role = document.createElement("label");
-          label_role.innerText = "Role";
-
-          var span_role = document.createElement("span");
-          span_role.innerText = "Enter the role you want to assign";
-          count_role++;
-
-          document.getElementById('add_user_list').appendChild(li3);
-          document.getElementById(li3.id).appendChild(label_role);
-          document.getElementById(li3.id).appendChild(newInput);
-          document.getElementById(li3.id).appendChild(span_role);
-
-        });
+      
 
         $("#add_more_privilege").click(function(){
           var newPermission = document.createElement("input");
@@ -145,7 +120,7 @@ $(document).ready(function(){
         });
       
         $("#sp").click(function () { //user clicks button
-          console.log("Button signin is cliche");
+          console.log("Button for validating permission");
   
           var search_agent_name = $('#search_agent_name').val();
           var search_permission = $('#search_permission').val();
@@ -153,12 +128,11 @@ $(document).ready(function(){
 
   
           $.ajax(  {
-                  type: "POST",
-                  url: "http://localhost:80/post/find/userpermit",
+                  url: "http://localhost:3000/post/find/userpermit",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
-                  
+                  method: "POST",
                   data: {
                       name : search_agent_name,
                       permission :search_permission,
@@ -177,12 +151,11 @@ $(document).ready(function(){
             var role = $('#delete_role_role').val();
 
             $.ajax(  {
-                    type: "POST",
-                    url: "http://localhost:80/delete/role/agent",
+                    url: "http://localhost:3000/delete/role/agent",
                     headers:{
                     "content-type": "application/x-www-form-urlencoded"
                     },
-                    
+                    method: "POST",
                     data: {
 
                       agent_name : agent_name,
@@ -193,6 +166,27 @@ $(document).ready(function(){
                     });
             
             });
+
+            $("#delete_role_role_btn").click(function () { //user clicks button
+              console.log("DELETe ROLE IS CALLED");
+      
+            
+              var role = $('#delete_role_role_role').val();
+  
+              $.ajax(  {
+                      url: "http://localhost:3000/delete/role/role",
+                      headers:{
+                      "content-type": "application/x-www-form-urlencoded"
+                      },
+                      method: "POST",
+                      data: {
+                        role: role
+                      }
+                      }).done(function (response) {
+                      console.log(response);
+                      });
+              
+              });
 
 
 
@@ -215,4 +209,4 @@ $(document).ready(function(){
                 //console.log(response);
                 //});
             //});
-  });
+  }):

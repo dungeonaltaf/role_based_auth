@@ -33,7 +33,7 @@ app.get('/',function(req,res){
     
 });
 
-app.post('/post/insert/agent',urlencoder,function(req,res){
+app.post('/post/insert/agent/',urlencoder,function(req,res){
   // var req_length = Object.keys(req.body).length;
     //console.log("Length="+req_length);
     console.log(req.body.agent_name);
@@ -251,6 +251,42 @@ app.post('/delete/role/agent', urlencoder, function(res,req){
             }      
     });
 });
+
+
+app.get('/get/agent/roles', urlencoder , function(req,res){
+
+    var agent_name = req.body.agent_name;
+    var select_agent_uid = "SELECT UID from agent_name where agent_name  = ?";
+
+    conn.query(select_agent_uid, [agent_name], function(err, result,field){
+        if(!err){
+
+            console.log(result);
+            var UID = result[0].UID;
+        }
+        else{
+            console.log(err);
+        }
+
+        var select_role = "SELECT Role from agent_role where UID =?";
+
+        conn.query(select_role , [UID], function(err,result,field){
+            if(!err){
+                console.log(result);
+                var result_formatted;
+                for  (var i=0;i<result.length;i++){
+                    result_formatted = result[i].Role;
+                }
+                res.send(result_formatted);
+            }
+            else{
+                console.log(err);
+            }
+
+        })
+    })
+});
+
 
 
 });
