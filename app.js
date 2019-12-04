@@ -271,9 +271,10 @@ app.post('/delete/role/agent', cors(), urlencoder, function(res,req){
 
             var delete_agent_role_query = "DELETE FROM agent_role where Role=? and UID = ?";
 
-            conn.query(delete_agent_role_query, [role, UID], function(err,result,field){
+            conn.query(delete_agent_role_query, [role, UID], function(err,result_del,field){
                  if (!err){
-                   console.log("Deletion successful"+result);
+                   console.log("Deletion successful"+result_del);
+                   console.log("Number of records deleted: " + result_del.affectedRows);
                    req.end("Deletion Successful");
                }
                else{

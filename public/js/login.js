@@ -201,7 +201,10 @@ $(document).ready(function(){
                       role: role
                     }
                     }).done(function (response) {
-                    console.log(response);
+                      var res = document.createElement("p");
+                      res.innerHTML = response;
+                      document.getElementById('res_server_del_div').appendChild(res);
+                     console.log(response);
                     });
             
             });
