@@ -148,23 +148,24 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     var select_uid_from_name = "SELECT UID from agent_name where agent_name = ?"
     conn.query(select_uid_from_name, [name], function(err,result_uid,field){
         if (!err && result_uid.length>0){
-            console.log("UID OF THE AGENT IS"+result_uid[0].UID);
+            console.log("UID OF THE AGENT from select uid from agent_name where agent_name"+result_uid[0].UID);
 
             var select_resource_permission = "SELECT role_name FROM resource_permission WHERE resource = ? AND permission = ? ";
 
             conn.query(select_resource_permission, [resource, permission], function(err,result_role_name,field){
-                console.log("resource inputed is= "+ resource);
-                console.log("permission inputed is"+ permission);
-                console.log("lenght of rows are are " +result_role_name.length);
+                console.log("resource request is= "+ resource);
+                console.log("permission request is"+ permission);
+                console.log("lenght of rows for select role_name from res_perm where resource =? and permission=? " +result_role_name.length);
                 if (!err && result_role_name.length>0){
                    
                     console.log(result_role_name[0].role_name);
-                    console.log("The uid of the agent is again = "+ result_uid[0].UID);
+                    console.log("The uid of the select  uid from agent_name where agent_name=? == "+ result_uid[0].UID);
                     var uid = result_uid[0].UID;
                     console.log("Query executed :: select role_name from resource permission where resource = ? and permission=?");
                    var select_uid_role = "SELECT COUNT(UID) as Count from agent_role where uid =? and role = ?";
                     var num_rows = result_role_name.length;
                     for (var i=0;i<num_rows;i++){
+                        console.log("Value of i ="+i);
                         conn.query(select_uid_role, [uid, result_role_name[i].role_name], function(err,result,field){
                             
                             if (!err){
@@ -192,6 +193,8 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                             }
         
                         });
+                        console.log(" ");
+                        console.log(" ");
                     }
                     req.end("Not Permitted!");
                 
