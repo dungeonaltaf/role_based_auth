@@ -254,28 +254,37 @@ app.post('/delete/role/agent', cors(), urlencoder, function(res,req){
     var agent_name = res.body.agent_name;
     var role = res.body.role;
 
+    console.log("agent_name="+agent_name);
+    console.log("role is"+role);
+
     var select_UID = "SELECT UID from agent_name where agent_name =?";
 
     conn.query(select_UID,[agent_name],function(err,result,field){
 
-        if (!err){
-            console.log(result);
+        if (!err && result.length>0){
+            console.log("succesuful query uid of agent is ="+result);
 
-        }
-        else{
-            console.log(err);
-        }
-    var UID    = result[0].UID;
-    var delete_agent_role_query = "DELETE FROM agent_role where Role=? and UID = ?";
+            var UID    = result[0].UID;
+            console.log("UID of the AGENT IS="+UID);
 
-    conn.query(delete_agent_role_query, [role, UID], function(err,result,field){
-            if (!err){
-                console.log(result);
-            }
-            else{
-                console.log(err);
-            }      
-    });
+            var delete_agent_role_query = "DELETE FROM agent_role where Role=? and UID = ?";
+
+            conn.query(delete_agent_role_query, [role, UID], function(err,result,field){
+                 if (!err){
+                   console.log("Deletion successful"+result);
+                   req.end("Deletion Successful");
+               }
+               else{
+                    console.log(err);
+              }      
+         });
+
+         }
+         else{
+             console.log(err);
+         }
+    
+});
 });
 
 
@@ -315,10 +324,12 @@ app.get('/get/agent/roles', cors() ,urlencoder , function(req,res){
 
 
 
-});
 app.use('/api', route);
+
 app.listen(port, function(){
+
     console.log("Connected on port"+port);
+
 });
 
 
