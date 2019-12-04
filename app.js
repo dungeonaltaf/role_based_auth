@@ -149,6 +149,61 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     conn.query(select_uid_from_name, [name], function(err,result_uid,field){
         if (!err && result_uid.length>0){
             console.log("UID OF THE AGENT IS"+result_uid[0].UID);
+
+            var select_resource_permission = "SELECT role_name FROM resource_permission WHERE resource = ? AND permission = ? ";
+
+            conn.query(select_resource_permission, [resource, permission], function(err,result_role_name,field){
+                console.log("resource inputed is= "+ resource);
+                console.log("permission inputed is"+ permission);
+                console.log("lenght of rows are are " +result_role_name.length);
+                if (!err && result_role_name.length>0){
+                   
+                    console.log(result_role_name[0].role_name);
+                    console.log("The uid of the agent is again = "+ result_uid[0].UID);
+                    var uid = result_uid[0].UID;
+                    console.log("Query executed :: select role_name from resource permission where resource = ? and permission=?");
+                   var select_uid_role = "SELECT COUNT(UID) as Count from agent_role where uid =? and role = ?";
+                    var num_rows = result_role_name.length;
+                    for (var i=0;i<num_rows;i++){
+                        conn.query(select_uid_role, [uid, result_role_name[i].role_name], function(err,result,field){
+                            
+                            if (!err){
+                                console.log("result is"+result);
+                                console.log("result count is"+result[0].Count);
+                                if (result[0].Count>=1){
+                                    console.log("Query approved");
+                                    permission_string = "Permitted";
+                                    console.log(permission_string);
+                                    req.end(permission_string);
+                                    break;
+                                    
+                                } 
+                                else {
+                                    permission_string = "Not Permitted";
+                                    console.log(permission_string);
+                                    
+                                }
+                               
+                            }
+        
+        
+                            else{
+                                console.log(err);
+                            }
+        
+                        });
+                    }
+                    req.end("Not Permitted!");
+                
+                }
+                else{
+                    console.log(err);
+                    req.end("Resource or permission not in the system");
+                }
+            });
+
+
+            
         }
         else{
             req.end("Agent not present in the system!");
@@ -156,57 +211,6 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
         }
    
 
-    var select_resource_permission = "SELECT role_name FROM resource_permission WHERE resource = ? AND permission = ? ";
-
-    conn.query(select_resource_permission, [resource, permission], function(err,result_role_name,field){
-        console.log("resource inputed is= "+ resource);
-        console.log("permission inputed is"+ permission);
-        console.log("lenght of rows are are " +result_role_name.length);
-        if (!err && result_role_name.length>0){
-           
-            console.log(result_role_name[0].role_name);
-            console.log("The uid of the agent is again = "+ result_uid[0].UID);
-            var uid = result_uid[0].UID;
-            console.log("Query executed :: select role_name from resource permission where resource = ? and permission=?");
-           var select_uid_role = "SELECT COUNT(UID) as Count from agent_role where uid =? and role = ?";
-            var num_rows = result_role_name.length;
-            for (var i=0;i<num_rows;i++){
-                conn.query(select_uid_role, [uid, result_role_name[i].role_name], function(err,result,field){
-                    
-                    if (!err){
-                        console.log("result is"+result);
-                        console.log("result count is"+result[0].Count);
-                        if (result[0].Count>=1){
-                            console.log("Query approved");
-                            permission_string = "Permitted";
-                            console.log(permission_string);
-                            req.end(permission_string);
-                            break;
-                            
-                        } 
-                        else {
-                            permission_string = "Not Permitted";
-                            console.log(permission_string);
-                            
-                        }
-                       
-                    }
-
-
-                    else{
-                        console.log(err);
-                    }
-
-                });
-            }
-            req.end("Not Permitted!");
-        
-        }
-        else{
-            console.log(err);
-            req.end("Resource or permission not in the system");
-        }
-    });
     });
     console.log("permission_string is="+permission_string);
     
