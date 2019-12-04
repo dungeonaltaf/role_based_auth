@@ -186,7 +186,8 @@ $(document).ready(function(){
     
             var agent_name = $('#delete_role_agent').val();
             var role = $('#delete_role_role').val();
-
+            console.log("agent_name is "+agent_name);
+            console.log("role to be deleted"+role);  
             $.ajax(  {
                     type: "POST",
                     url: "http://52.66.196.67/delete/role/agent",

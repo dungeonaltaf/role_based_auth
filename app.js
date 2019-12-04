@@ -250,6 +250,8 @@ app.post('/delete/role/role', cors(), urlencoder, function(res,req){
 });
 
 app.post('/delete/role/agent', cors(), urlencoder, function(res,req){
+    console.log("");
+    console.log("");
     console.log("Incoming delete request");
     var agent_name = res.body.agent_name;
     var role = res.body.role;
