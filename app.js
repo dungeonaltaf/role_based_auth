@@ -78,7 +78,7 @@ app.post('/post/insert/agent/',cors(),urlencoder,function(req,res){
             conn.query(insert_role_query, [agent_uid, role_name[i]], function(err,result,field){
                 if  (!err){
                     console.log(result);
-                    res.send("User Added");
+                //    res.send("User Added");
                 }
                 else{
                     console.log(err);
@@ -273,6 +273,8 @@ app.post('/delete/role/agent', cors(), urlencoder, function(res,req){
 
             conn.query(delete_agent_role_query, [role, UID], function(err,result_del,field){
                  if (!err){
+
+                    
                    console.log("Deletion successful"+result_del);
                    console.log("Number of records deleted: " + result_del.affectedRows);
                    req.end("Deletion Successful");
