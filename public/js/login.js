@@ -168,7 +168,7 @@ $(document).ready(function(){
                   }
                   }).done(function (response) {
                     var res = document.createElement("p");
-                   res.innerText = this.response;
+                   res.innerText = JSON.parse(response.responseText);
                    document.getElementById('res_server_div').appendChild(res);
                   console.log(response);
                   });
