@@ -176,7 +176,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                                     permission_string = "Permitted";
                                     console.log(permission_string);
                                     req.end(permission_string);
-                                    break;
+                                    
                                     
                                 } 
                                 else {
