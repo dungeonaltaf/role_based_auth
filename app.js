@@ -145,7 +145,6 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     console.log(name);
     console.log(resource);
     console.log(permission);
-    var uid;
     var select_uid_from_name = "SELECT UID from agent_name where agent_name = ?"
     conn.query(select_uid_from_name, [name], function(err,result_uid,field){
         if (!err && result_uid.length>0){
@@ -162,13 +161,13 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
     conn.query(select_resource_permission, [resource, permission], function(err,result_role_name,field){
         console.log("resource inputed is= "+ resource);
         console.log("permission inputed is"+ permission);
-        console.log("affectedRows are " +result_role_name.length);
+        console.log("lenght of rows are are " +result_role_name.length);
         if (!err && result_role_name.length>0){
            
             console.log(result_role_name[0].role_name);
             console.log("The uid of the agent is again = "+ result_uid[0].UID);
             var uid = result_uid[0].UID;
-            console.log("Query executed");
+            console.log("Query executed :: select role_name from resource permission where resource = ? and permission=?");
            var select_uid_role = "SELECT COUNT(UID) as Count from agent_role where uid =? and role = ?";
             var num_rows = result_role_name.length;
             for (var i=0;i<num_rows;i++){
@@ -182,12 +181,13 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                             permission_string = "Permitted";
                             console.log(permission_string);
                             req.end(permission_string);
+                            break;
                             
                         } 
                         else {
                             permission_string = "Not Permitted";
                             console.log(permission_string);
-                            req.end(permission_string);
+                            
                         }
                        
                     }
@@ -199,6 +199,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
 
                 });
             }
+            req.end("Not Permitted!");
         
         }
         else{
