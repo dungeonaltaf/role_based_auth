@@ -196,7 +196,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
                         console.log(" ");
                         console.log(" ");
                     }
-                    req.end("Not Permitted!");
+                    
                 
                 }
                 else{
