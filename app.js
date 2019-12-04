@@ -78,6 +78,7 @@ app.post('/post/insert/agent/',cors(),urlencoder,function(req,res){
             conn.query(insert_role_query, [agent_uid, role_name[i]], function(err,result,field){
                 if  (!err){
                     console.log(result);
+                    res.send("User Added");
                 }
                 else{
                     console.log(err);
@@ -123,6 +124,7 @@ app.post('/post/insert/permission',cors(), urlencoder , function(req,res){
             conn.query(insert_role_query, [role_name, resource_list[i], permission_list[i]], function(err,result,field){
                 if  (!err){
                     console.log(result);
+                    res.send("Permissions Added for the resource!");
                 }
                 else{
                     console.log(err);
@@ -162,7 +164,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
         console.log("permission inputed is"+ permission);
         console.log("affectedRows are " +result_role_name.length);
         if (!err && result_role_name.length>0){
-            req.end("Resource or permission not in the system");
+           
             console.log(result_role_name[0].role_name);
             console.log("The uid of the agent is again = "+ result_uid[0].UID);
             var uid = result_uid[0].UID;
@@ -201,6 +203,7 @@ app.post('/post/find/userpermit/', cors(),urlencoder,function(res,req){
         }
         else{
             console.log(err);
+            req.end("Resource or permission not in the system");
         }
     });
     });

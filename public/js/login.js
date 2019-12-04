@@ -30,7 +30,10 @@ $(document).ready(function(){
                     role :role,
                 }
                 }).done(function (response) {
-                console.log(response);
+                  var insert_agent = document.createElement("p");
+                  insert_agent.innerHTML = response;
+                  document.getElementById('res_server_add_user_list').appendChild(insert_agent);
+                 console.log(response);
                 });
         
         });
@@ -70,7 +73,10 @@ $(document).ready(function(){
                       permission : permission
                   }
                   }).done(function (response) {
-                  console.log(response);
+                    var insert_permit = document.createElement("p");
+                    insert_permit.innerHTML = response;
+                    document.getElementById('res_server_add_permission').appendChild(insert_permit);
+                   console.log(response);
                   });
           
           });
