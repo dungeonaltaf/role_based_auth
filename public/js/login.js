@@ -3,6 +3,8 @@ $(document).ready(function(){
 
   var count_role=2;
   var count_permission = 2;
+  var ip = $('#ip').val();
+
     
     $("#add_user").click(function () { //user clicks button
         console.log("Button signin is clicke");
@@ -20,7 +22,7 @@ $(document).ready(function(){
 
         $.ajax(  {
                 type: "POST",
-                url: "http://52.66.196.67/post/insert/agent/",
+                url: "http://"+ip+"/post/insert/agent/",
                 headers:{
                 "content-type": "application/x-www-form-urlencoded"
                 },
@@ -62,7 +64,7 @@ $(document).ready(function(){
   
           $.ajax(  {
                   type: "POST",
-                  url: "http://52.66.196.67/post/insert/permission",
+                  url: "http://"+ip+"/post/insert/permission",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
@@ -162,7 +164,7 @@ $(document).ready(function(){
   
           $.ajax(  {
                   type: "POST",
-                  url: "http://52.66.196.67/post/find/userpermit/",
+                  url: "http://"+ip+"/post/find/userpermit/",
                   headers:{
                   "content-type": "application/x-www-form-urlencoded"
                   },
@@ -190,7 +192,7 @@ $(document).ready(function(){
             console.log("role to be deleted"+role);  
             $.ajax(  {
                     type: "POST",
-                    url: "http://52.66.196.67/delete/role/agent",
+                    url: "http://"+ip+"/delete/role/agent",
                     headers:{
                     "content-type": "application/x-www-form-urlencoded"
                     },
