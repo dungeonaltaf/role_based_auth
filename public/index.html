@@ -1,92 +1,192 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Role Based Authorization
     </title>
     <script type="text/javascript" src ="./js/jquery-3.4.1.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/login.css">
+    <link rel="stylesheet" type="text/css" href="./css/login.css"> 
 </head>
+
 <body>
 
-      
+
+
+<div class = "TITLE">
+    <h1> Role Authoring System</h1>
+</div>
+
+<div class = "div_menu">
+
+<ul class="menu_horizontal_list">
+  <li> 
+      <div class="dropdown">
+      <button class="dropbtn ghost-button-semi-transparent-menu">Server Configuration</button>
+      <div class="dropdown-content">
+      <button class="dropbtn ghost-button-semi-transparent-list" id = "menu_set_ip">SET IP</button>
+      </div>
+  </li>
+
+
+  <li>
+      <div class="dropdown">
+        <button class="dropbtn ghost-button-semi-transparent-menu">Role</button>
+        <div class="dropdown-content">
+          <button class="dropbtn ghost-button-semi-transparent-list" id = "add_role_show">Add Role</button>
+          <button class="dropbtn ghost-button-semi-transparent-list" id = "delete_role_show">Delete Role</button>
+        </div>
+      </div>
+  </li>
+
+
+  <li>
+      <div class="dropdown">
+        <button class="dropbtn ghost-button-semi-transparent-menu">Agent</button>
+        <div class="dropdown-content">
+          <button class="dropbtn ghost-button-semi-transparent-list" id = "add_user_show">Add User</button>
+          <button class="dropbtn ghost-button-semi-transparent-list" id = "search_user_show"> Search User Permit</button>
+           <button class="dropbtn ghost-button-semi-transparent-list" id = "get_user_role_show"> Get User Role</button>
+          <button class="dropbtn ghost-button-semi-transparent-list" id ="delete_user_role_show">Delete User Role</button>
+        </div>
+      </div>
+  </li>
+
+</ul>
+
+</div>
+
+
+<!--Server Form Start-->
+
+<div id ="ServerForm">
+
   <form class = "form-style-7">
-  <label>
-              IP+PORT
-            </label>
-   <input type="text"required autocomplete="off" name="ip" id = "ip" class = "ip"/>
-   <span> Enter the IP  of the server </span>
-   </form>
-     <button id = "addIP" class = "btn">Add IP</button>
-         
-			<form class = "form-style-7">
-        <div id= "main">
-        <ul id = "add_user_list">
-      <li>
-            <label>
-              Agent Name
-            </label>
-            <input type="text" required autocomplete="off" name="agent_name" id="agent_name"/>
-            <span> Enter the Name of the agent </span>
-       </li>
+    
+    <div id= "main">
+      <ul id = "add_user_list">
        <li>
-            <label>
-              Role
-            </label>
-            <input type="text"required autocomplete="off" name="role" id = "role1" class = "role"/>
-            <span> Enter the Role you want to assign </span>
-        </li>
+        <label>
+          Address of Server
+        </label>
+        <input type="text" required autocomplete="off" name="ip" id="ip"/>
+        <span> Enter the address and port of server </span>
+       </li>
+    </div>
+  
+  </form>
+      
 
-          </div>
+  <div align = "center">
+    <button id = "addIP" class = "btn ghost-button-semi-transparent">Add IP</button>
+  </div>
 
-           </form>
+</div>      
 
-         <button id = "add_role" class = "btn">Add Roles</button>
-        <button id = "add_user" class = "btn" > Add User </button>
+<!--Server Form END-->
 
-         <div id = "res_server_add_user_list"> </div>
+<!--ADD USER Form Start-->
 
-     
+   <div id= "AddUserForm">
+			<form class = "form-style-7">
 
-      <form class = "form-style-7">  
-          <div id = "main2">
-          <ul id = "add_res_list">
-          <li>
-            <label>
-              Role
-            </label>
-            <input type="text" required autocomplete="off" name="role_name" id="role_name"/>
-            <span> Create a New Role </span>
-           </li>
-           <li>
-            <label>
-              Resource
-            </label>
-            <input type="text"required autocomplete="off" name="resoruce1" id = "resource1" class = "resource"/>
-            <span> Assign  a resource to it </span>
-            </li>
-            <li>
-            <label>
-              PERMISSION
-            </label>
-            <input type="text"required autocomplete="off" name="permission1" id = "permission1" class = "permission"/>
-           <span> Add permission to it </span>
-            </li>
-          </div>
+          <div id= "main">
+
+            <ul id = "add_user_list">
+              <li>
+               <label>
+                 Agent Name
+                </label>
+                <input type="text" required autocomplete="off" name="agent_name" id="agent_name"/>
+                <span> Enter the Name of the agent </span>
+              </li>
+
+             <li>
+              <label>
+                Role
+              </label>
+              <input type="text"required autocomplete="off" name="role" id = "role1" class = "role"/>
+              <span> Enter the Role you want to assign </span>
+             </li>
+
+             </div>
+
         </form>
-         <button id = "add_more_privilege" class = "btn">Add More Privelege</button>
-        
-        <button id = "submit_privilege" class = "btn"> Submit Privelege </button>
+
+        <div align="center">  
+        <button id = "add_role" class = "btn  ghost-button-semi-transparent">Add Roles</button>
+        <button id = "add_user" class = "btn  ghost-button-semi-transparent"> Add User </button>
+        </div>
+
+        <div id = "res_server_add_user_list"> </div>
+
+   </div>
+
+   <!--ADD USER Form End-->
+
+    <!--ADD NEW ROLE Form Start-->
+     
+<div id = "NewRoleForm">
+      <form class = "form-style-7">  
+
+          <div id = "main2">
+       
+          <ul id = "add_res_list">
+
+            <li>
+              <label>
+                Role
+              </label>
+              <input type="text" required autocomplete="off" name="role_name" id="role_name"/>
+              <span> Create a New Role </span>
+            </li>
+
+            <li>
+              <label>
+               Resource
+              </label>
+              <input type="text"required autocomplete="off" name="resoruce1" id = "resource1" class = "resource"/>
+              <span> Assign  a resource to it </span>
+            </li>
+
+            <li>
+              <label>
+                PERMISSION
+              </label>
+              <input type="text"required autocomplete="off" name="permission1" id = "permission1" class = "permission"/>
+              <span> Add permission to it </span>
+            </li>
+
+          </ul>
+
+        </div>
+
+      </form>
+
+        <div align = "center">
+        <button id = "add_more_privilege" class = "btn ghost-button-semi-transparent" >Add More Privelege</button>
+        <button id = "submit_privilege" class = "btn ghost-button-semi-transparent"> Submit Privelege </button>
+        </div>
+
         <div id = "res_server_add_permission"> </div>
 
-        
+</div>    
+
+    <!--ADD NEW  ROLE FORM END-->
+
+    <!--ADD SEARCH AGENT FORM START-->
+
+<div id = "SearchRoleAgent">
+
       <form class = "form-style-7">  
+
         <ul = "search_li" >
-        <li>
+
+          <li>
             <label>
-             Agent Name<span class="req">*</span>
+               Agent Name<span class="req">*</span>
             </label>
             <input type="text" required autocomplete="off" name="search_agent_name" id="search_agent_name"/>
-         <span> Enter the Name of the agent  you want to search</span>
+            <span> Enter the Name of the agent  you want to search</span>
          </li>   
 
          <li>
@@ -94,7 +194,7 @@
               Resource<span class="req">*</span>
             </label>
             <input type="text"required autocomplete="off" name="search_resoruce" id = "search_resource" class = "resource_name"/>
-         <span> Enter the Name of the resource attached to it </span>
+            <span> Enter the Name of the resource attached to it </span>
          </li>
 
          <li>
@@ -102,70 +202,102 @@
               PERMISSION<span class="req">*</span>
             </label>
             <input type="text"required autocomplete="off" name="search_permission" id = "search_permission" class = "permission_name"/>
-         <span> Enter the access level of resource </span>
+            <span> Enter the access level of resource </span>
          </li>
-         </ul>
-        </form>
-         <button id= "sp" class = "btn" >Search for Permission</button>
 
+         </ul>
+
+        </form>
+
+          <div align="center">
+          <button id= "sp" class = "btn  ghost-button-semi-transparent">Search for Permission</button>
+          </div>
          <div id = "res_server_div"> </div>
+
+</div>
+
+<div id = "DeleteRoleAgentForm">
 
          <form class="form-style-7">
             <ul id = "delete_role_agent_ul">
-            <li>
-            <label>
-              Agent Name 
-            </label>
-            <input type="text"required autocomplete="off" name="delete_role_agent" id = "delete_role_agent" class = "delete_role_agent"/>
-         <span> Enter the Name whose particular role needs to be deleted </span>
-        </li>
 
-        <li>
-         <label>
-              Role 
-            </label>
-            <input type="text"required autocomplete="off" name="delete_role_role" id = "delete_role_role" class = "delete_role_role"/>
-         <span> Enter the role of the agent to be deleted </span>
-         </li>
-         </ul>
-         </form>
-           <button id= "delete_role_agent_btn" class = "btn" >DELETE</button>
-           <button id = "update_agent_role_btn" classs = "btn" > Update this role </button>
-         
+              <li>
+               <label>
+                  Agent Name 
+               </label>
+                <input type="text"required autocomplete="off" name="delete_role_agent" id = "delete_role_agent" class = "delete_role_agent"/>
+                <span> Enter the Name whose particular role needs to be deleted </span>
+              </li>
+
+               <li>
+                 <label>
+                     Role 
+                </label>
+               <input type="text"required autocomplete="off" name="delete_role_role" id = "delete_role_role" class = "delete_role_role"/>
+               <span> Enter the role of the agent to be deleted  OR Updated</span>
+               </li>
+
+            </ul>
+
+          </form>
+
+            <div align = "center">
+           <button id= "delete_role_agent_btn" class = "btn  ghost-button-semi-transparent" >DELETE</button>
+  
+           <button id= "update_agent_role_btn" class = "btn  ghost-button-semi-transparent" >UPDATE</button>
+            </div>
+
          <div id = "res_server_del_div"> </div>
-         
+</div>
 
-         
+<div id = "GetRoleAgentForm">   
+
          <form class="form-style-7">
+
             <ul id = "get_role_agent_ul">
-            <li>
-            <label>
-              Agent Name 
-            </label>
-            <input type="text"required autocomplete="off" name="get_agent_name" id = "get_agent_name" class = "get_agent_name"/>
-         <span> Enter the Agent Name whose role needs to be shown </span>
-        </li>
-         </ul>
-         </form>
-           <button id= "get_role_agent" class = "btn" >GET ROLES</button>
+
+             <li>
+               <label>
+               Agent Name 
+              </label>
+              <input type="text"required autocomplete="off" name="get_agent_name" id = "get_agent_name" class = "get_agent_name"/>
+              <span> Enter the Agent Name whose role needs to be shown </span>
+            </li>
+
+           </ul>
+
+          </form>
+          <div align="center">
+          <button id= "get_role_agent" class = "btn  ghost-button-semi-transparent" >GET ROLES</button>
+          </div>
+
          <div id = "res_server_get_roles_agent_div"> </div>
+</div>
+
+
+<div id = "DeleteRoleRoleForm">
 
            <form class="form-style-7">
-            <ul id = "del_role_role_ul">
-            <li>
-            <label>
-              Role
-            </label>
-            <input type="text"required autocomplete="off" name="del_role_role_name" id = "del_role_role_name" class = "del_role_role_name"/>
-         <span> Enter the Role you want to delete completely from the system
-         </ul>
+              <ul id = "del_role_role_ul">
+
+                <li>
+                <label>
+                Role
+                </label>
+                <input type="text"required autocomplete="off" name="del_role_role_name" id = "del_role_role_name" class = "del_role_role_name"/>
+                <span> Enter the Role you want to delete completely from the system</span>
+                </li>
+
+              </ul>
          </form>
-           <button id= "del_role_role" class = "btn" >DELETE ROLE</button>
+        
+          <div align = "center">
+          <button id= "del_role_role" class = "btn  ghost-button-semi-transparent" >DELETE ROLE</button>
+          </div>
+
          <div id = "res_server_del_role_role_div"> </div>
 
-
-
-
+</div>
 <script type="text/javascript" src ="./js/login_animation.js"></script>
 <script type="text/javascript" src ="./js/login.js"></script>
 </body>

@@ -4,6 +4,14 @@ $(document).ready(function() {
     var count_role = 2;
     var count_permission = 2;
     var ip;
+    $('#ServerForm').hide();
+    $('#AddUserForm').hide();
+    $('#NewRoleForm').hide();
+    $('#SearchRoleAgent').hide();
+    $('#DeleteRoleAgentForm').hide();
+    $('#GetRoleAgentForm').hide();
+    $('#DeleteRoleRoleForm').hide();
+
 
     $("#addIP").click(function() {
         ip = $('#ip').val();
@@ -262,13 +270,16 @@ $(document).ready(function() {
                 agent_name: get_agent_name,
             }
         }).done(function(response) {
-            var res = document.createElement("p");
-            res.innerHTML = response;
-            document.getElementById('res_server_del_div').appendChild(res);
+            $.each(response, function(index, element) {
+                console.log(element.Role);
+                var res = document.createElement("p");
+                res.innerHTML = element.Role;
+                document.getElementById('res_server_get_roles_agent_div').appendChild(res);
+            });
             console.log(response);
         });
 
-        console.log(response);
+
     });
 
     $("#del_role_role").click(function() { //user clicks button
@@ -293,6 +304,92 @@ $(document).ready(function() {
         });
 
     });
+
+    $("#menu_set_ip").click(function() {
+        $('#ServerForm').hide();
+        $('#AddUserForm').hide();
+        $('#NewRoleForm').hide();
+        $('#SearchRoleAgent').hide();
+        $('#DeleteRoleAgentForm').hide();
+        $('#GetRoleAgentForm').hide();
+        $('#DeleteRoleRoleForm').hide();
+        console.log("Showing IP Config");
+        $('#ServerForm').show();
+    });
+
+    $("#add_user_show").click(function() {
+        $('#ServerForm').hide();
+        $('#AddUserForm').hide();
+        $('#NewRoleForm').hide();
+        $('#SearchRoleAgent').hide();
+        $('#DeleteRoleAgentForm').hide();
+        $('#GetRoleAgentForm').hide();
+        $('#DeleteRoleRoleForm').hide();
+        console.log("Showing User Added Form");
+        $('#AddUserForm').show();
+    });
+
+    $("#add_role_show").click(function() {
+        $('#ServerForm').hide();
+        $('#AddUserForm').hide();
+        $('#NewRoleForm').hide();
+        $('#SearchRoleAgent').hide();
+        $('#DeleteRoleAgentForm').hide();
+        $('#GetRoleAgentForm').hide();
+        $('#DeleteRoleRoleForm').hide();
+        console.log("Showing Role Form");
+        $('#NewRoleForm').show();
+    });
+
+    $("#delete_role_show").click(function() {
+        $('#ServerForm').hide();
+        $('#AddUserForm').hide();
+        $('#NewRoleForm').hide();
+        $('#SearchRoleAgent').hide();
+        $('#DeleteRoleAgentForm').hide();
+        $('#GetRoleAgentForm').hide();
+        $('#DeleteRoleRoleForm').hide();
+        console.log("Showing Role Delete Form");
+        $('#DeleteRoleRoleForm').show();
+    });
+    $("#search_user_show").click(function() {
+        $('#ServerForm').hide();
+        $('#AddUserForm').hide();
+        $('#NewRoleForm').hide();
+        $('#SearchRoleAgent').hide();
+        $('#DeleteRoleAgentForm').hide();
+        $('#GetRoleAgentForm').hide();
+        $('#DeleteRoleRoleForm').hide();
+        console.log("Showing Get User Form");
+        $('#SearchRoleAgent').show();
+    });
+
+    $("#delete_user_role_show").click(function() {
+        $('#ServerForm').hide();
+        $('#AddUserForm').hide();
+        $('#NewRoleForm').hide();
+        $('#SearchRoleAgent').hide();
+        $('#DeleteRoleAgentForm').hide();
+        $('#GetRoleAgentForm').hide();
+        $('#DeleteRoleRoleForm').hide();
+        console.log("Showing IP Config");
+        $('#DeleteRoleAgentForm').show();
+    });
+
+    $("#get_user_role_show").click(function() {
+        $('#ServerForm').hide();
+        $('#AddUserForm').hide();
+        $('#NewRoleForm').hide();
+        $('#SearchRoleAgent').hide();
+        $('#DeleteRoleAgentForm').hide();
+        $('#GetRoleAgentForm').hide();
+        $('#DeleteRoleRoleForm').hide();
+        console.log("Showing IP Config");
+        $('#GetRoleAgentForm').show();
+    });
+
+
+
 
 
 });
