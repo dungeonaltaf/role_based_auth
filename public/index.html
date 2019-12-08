@@ -9,10 +9,14 @@
 <body>
 
       
-  <form class = "form-style-7"
+  <form class = "form-style-7">
+  <label>
+              IP+PORT
+            </label>
    <input type="text"required autocomplete="off" name="ip" id = "ip" class = "ip"/>
    <span> Enter the IP  of the server </span>
    </form>
+     <button id = "addIP" class = "btn">Add IP</button>
          
 			<form class = "form-style-7">
         <div id= "main">
@@ -126,11 +130,40 @@
          </ul>
          </form>
            <button id= "delete_role_agent_btn" class = "btn" >DELETE</button>
+           <button id = "update_agent_role_btn" classs = "btn" > Update this role </button>
          
          <div id = "res_server_del_div"> </div>
+         
 
-    
-</div>
+         
+         <form class="form-style-7">
+            <ul id = "get_role_agent_ul">
+            <li>
+            <label>
+              Agent Name 
+            </label>
+            <input type="text"required autocomplete="off" name="get_agent_name" id = "get_agent_name" class = "get_agent_name"/>
+         <span> Enter the Agent Name whose role needs to be shown </span>
+        </li>
+         </ul>
+         </form>
+           <button id= "get_role_agent" class = "btn" >GET ROLES</button>
+         <div id = "res_server_get_roles_agent_div"> </div>
+
+           <form class="form-style-7">
+            <ul id = "del_role_role_ul">
+            <li>
+            <label>
+              Role
+            </label>
+            <input type="text"required autocomplete="off" name="del_role_role_name" id = "del_role_role_name" class = "del_role_role_name"/>
+         <span> Enter the Role you want to delete completely from the system
+         </ul>
+         </form>
+           <button id= "del_role_role" class = "btn" >DELETE ROLE</button>
+         <div id = "res_server_del_role_role_div"> </div>
+
+
 
 
 <script type="text/javascript" src ="./js/login_animation.js"></script>
