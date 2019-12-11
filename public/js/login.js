@@ -3,7 +3,10 @@ $(document).ready(function() {
 
     var count_role = 2;
     var count_permission = 2;
-    var ip;
+
+    var ip = window.location.origin;
+    console.log("ip is" + ip);
+
     $('#ServerForm').hide();
     $('#AddUserForm').hide();
     $('#NewRoleForm').hide();
@@ -11,12 +14,6 @@ $(document).ready(function() {
     $('#DeleteRoleAgentForm').hide();
     $('#GetRoleAgentForm').hide();
     $('#DeleteRoleRoleForm').hide();
-
-
-    $("#addIP").click(function() {
-        ip = $('#ip').val();
-        console.log("IP IS" + ip);
-    })
 
 
     $("#add_user").click(function() { //user clicks button
@@ -35,7 +32,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "http://" + ip + "/post/insert/agent/",
+            url: ip + "/post/insert/agent/",
             headers: {
                 "content-type": "application/x-www-form-urlencoded"
             },
@@ -77,7 +74,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "http://" + ip + "/post/insert/permission",
+            url: ip + "/post/insert/permission",
             headers: {
                 "content-type": "application/x-www-form-urlencoded"
             },
@@ -177,7 +174,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "http://" + ip + "/post/find/userpermit/",
+            url: ip + "/post/find/userpermit/",
             headers: {
                 "content-type": "application/x-www-form-urlencoded"
             },
@@ -205,7 +202,7 @@ $(document).ready(function() {
         console.log("role to be deleted" + role);
         $.ajax({
             type: "POST",
-            url: "http://" + ip + "/delete/role/agent",
+            url: ip + "/delete/role/agent",
             headers: {
                 "content-type": "application/x-www-form-urlencoded"
             },
@@ -233,7 +230,7 @@ $(document).ready(function() {
         console.log("role to be updated" + role);
         $.ajax({
             type: "POST",
-            url: "http://" + ip + "/update/agent/role",
+            url: ip + "/update/agent/role",
             headers: {
                 "content-type": "application/x-www-form-urlencoded"
             },
@@ -261,7 +258,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "http://" + ip + "/get/agent/roles",
+            url: ip + "/get/agent/roles",
             headers: {
                 "content-type": "application/x-www-form-urlencoded"
             },
@@ -291,7 +288,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "POST",
-            url: "http://" + ip + "/delete/role/role",
+            url: ip + "/delete/role/role",
             headers: {
                 "content-type": "application/x-www-form-urlencoded"
             },
