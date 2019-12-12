@@ -296,7 +296,9 @@ $(document).ready(function() {
                 role: del_role_role,
             }
         }).done(function(response) {
-
+            var res = document.createElement("p");
+            res.innerHTML = response;
+            document.getElementById('res_server_del_role_role_div').appendChild(res);
             console.log(response);
         });
 

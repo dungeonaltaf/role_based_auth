@@ -249,7 +249,11 @@ app.post("/delete/role/role", cors(), urlencoder, function(req, res) {
     ) {
         if (!err) {
             console.log(result);
-            res.end("Role Deleted");
+            if (result.affectedRows > 0) {
+                res.end("Role Deleted");
+            } else {
+                res.end("There is no such Role");
+            }
         } else {
             console.log(err);
         }
