@@ -188,22 +188,34 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                         "SELECT COUNT(UID) as Count from agent_role where uid =? and role = ?";
                     var num_rows = result_role_name.length;
 
-                    for (var i = 0; i < num_rows; i++) {
+                    console.log("numbers of rows to iterate" + num_rows);
+                    for (var i = 0; i < num_rows; ++i) {
+
                         console.log("Value of i =" + i);
+                        console.log(i);
                         conn.query(
                             select_uid_role, [uid, result_role_name[i].role_name],
                             function(err, result, field) {
+
                                 if (!err) {
                                     console.log("result is" + result);
                                     console.log("result count is" + result[0].Count);
+
                                     if (result[0].Count >= 1) {
                                         console.log("Query approved");
                                         permission_string = "Permitted";
+
                                         console.log(permission_string);
                                         req.end(permission_string);
                                     } else {
-                                        permission_string = "Not Permitted";
-                                        console.log(permission_string);
+                                        console.log("i before check is" + i);
+                                        if (i == (num_rows - 1)) {
+                                            console.log("i is" + i);
+                                            req.end("NotPermitted");
+                                        } else {
+                                            permission_string = "Not Permitted";
+                                            console.log(permission_string);
+                                        }
                                     }
                                 } else {
                                     console.log(err);
@@ -212,8 +224,10 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                         );
                         console.log(" ");
                         console.log(" ");
+
+
                     }
-                    //  req.end("NotPermitted");
+
                 } else {
                     console.log(err);
                     req.end("Resource or permission not in the system");
@@ -351,18 +365,22 @@ app.post("/update/agent/role", urlencoder, function(req, res) {
         field
     ) {
         if (!err) {
-            var UID = result[0].UID;
+            if (UID) {
+                var UID = result[0].UID;
 
-            var add_role_query = "INSERT INTO agent_role(UID, Role) VALUES(?,?)";
-            conn.query(add_role_query, [UID, add_role], function(err, result, field) {
-                if (!err) {
-                    if (result.affectedRows > 0) {
-                        res.end("Role has been added");
+                var add_role_query = "INSERT INTO agent_role(UID, Role) VALUES(?,?)";
+                conn.query(add_role_query, [UID, add_role], function(err, result, field) {
+                    if (!err) {
+                        if (result.affectedRows > 0) {
+                            res.end("Role has been added");
+                        }
+                    } else {
+                        console.log(err);
                     }
-                } else {
-                    console.log(err);
-                }
-            });
+                });
+            } else {
+                res.end("Please create a user first!");
+            }
         } else {
             console.log(err);
         }

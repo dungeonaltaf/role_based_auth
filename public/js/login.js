@@ -95,25 +95,35 @@ $(document).ready(function() {
 
 
     $("#add_role").click(function() {
+
+        var label_role = document.createElement("label");
+        label_role.innerText = "Role";
+
+
+
         var newInput = document.createElement("input");
         newInput.type = "text";
         newInput.name = "role" + count_role;
         newInput.id = "role" + count_role;
         newInput.className = "role";
-        var li3 = document.createElement("li");
-        li3.id = "li3" + count_role;
-
-        var label_role = document.createElement("label");
-        label_role.innerText = "Role";
 
         var span_role = document.createElement("span");
         span_role.innerText = "Enter the role you want to assign";
+
+        var li3 = document.createElement("li");
+        li3.id = "li3" + count_role;
+
+
+
+
         count_role++;
 
-        document.getElementById('add_user_list').appendChild(li3);
-        document.getElementById(li3.id).appendChild(label_role);
-        document.getElementById(li3.id).appendChild(newInput);
-        document.getElementById(li3.id).appendChild(span_role);
+        console.log(li3.id);
+        console.log(count_role);
+        console.log(document.getElementById('add_user_list').appendChild(li3));
+        console.log(document.getElementById(li3.id).appendChild(label_role));
+        console.log(document.getElementById(li3.id).appendChild(newInput));
+        console.log(document.getElementById(li3.id).appendChild(span_role));
 
     });
 
