@@ -70,6 +70,7 @@ app.post("/post/insert/agent/", cors(), urlencoder, function(req, res) {
         if (!err) {
             console.log("The result id of agent is" + result[0].UID);
             agent_uid = result[0].UID;
+
         } else {
             console.log(err);
         }
@@ -328,33 +329,48 @@ app.post("/get/agent/roles", cors(), urlencoder, function(req, res) {
     console.log("Retrieving agent's Roles");
     var agent_name = req.body.agent_name;
     var select_agent_uid = "SELECT UID from agent_name where agent_name  = ?";
+    console.log("agent name is" + agent_name);
 
     conn.query(select_agent_uid, [agent_name], function(err, result, field) {
+
+        console.log("result length is" + result.length);
+
         if (!err) {
-            console.log("result is" + result);
-            var UID = result[0].UID;
+            if (result.length > 0) {
+                console.log("result is" + result);
+                var UID = result[0].UID;
+                console.log("UID" + UID);
+                var select_role = "SELECT Role from agent_role where UID =?";
+                conn.query(select_role, [UID], function(err, result, field) {
+                    if (!err) {
+                        console.log("");
+                        console.log("");
+                        console.log("RESULT-->");
+                        console.log(result);
+
+                        res.json(result);
+                    } else {
+                        console.log(err);
+                    }
+                });
+            } else {
+                var response = [{ Role: 'Agent Not in the System' }];
+                console.log(response);
+                res.json(response);
+
+            }
         } else {
             console.log(err);
         }
 
-        var select_role = "SELECT Role from agent_role where UID =?";
 
-        conn.query(select_role, [UID], function(err, result, field) {
-            if (!err) {
-                console.log("");
-                console.log("");
-                console.log("RESULT-->");
-                console.log(result);
 
-                res.json(result);
-            } else {
-                console.log(err);
-            }
-        });
+
     });
 });
 
 app.post("/update/agent/role", urlencoder, function(req, res) {
+    console.log("Incoming update agent request");
     var update_agent_name = req.body.update_agent_name;
     var add_role = req.body.add_role;
 
@@ -365,17 +381,15 @@ app.post("/update/agent/role", urlencoder, function(req, res) {
         field
     ) {
         if (!err) {
-            if (UID) {
-                var UID = result[0].UID;
 
+            var UID = result[0].UID;
+            console.log("UID of agent is" + UID);
+
+            if (UID) {
                 var add_role_query = "INSERT INTO agent_role(UID, Role) VALUES(?,?)";
                 conn.query(add_role_query, [UID, add_role], function(err, result, field) {
                     if (!err) {
-                        if (result.affectedRows > 0) {
-                            res.end("Role has been added");
-                        }
-                    } else {
-                        console.log(err);
+                        res.end("Role has been added");
                     }
                 });
             } else {

@@ -18,7 +18,7 @@ $(document).ready(function() {
 
     $("#add_user").click(function() { //user clicks button
         console.log("Button signin is clicke");
-
+        $('#res_server_add_user_list').empty();
         var agent_name = $('#agent_name').val();
         var $items = $('.role');
         var length = $items.length;
@@ -53,6 +53,7 @@ $(document).ready(function() {
     $("#submit_privilege").click(function() { //user clicks button
         console.log("Button signin is clicke");
         count_role = 2;
+        $('#res_server_add_permission').empty();
         var role_name = $('#role_name').val();
         var $permission = $('.permission');
         var $resoruce = $('.resource')
@@ -174,7 +175,7 @@ $(document).ready(function() {
 
     $("#sp").click(function() { //user clicks button
         console.log("Button signin is cliche");
-
+        $('#res_server_div').empty();
         var search_agent_name = $('#search_agent_name').val();
         var search_permission = $('#search_permission').val();
         var search_resource = $('#search_resource').val();
@@ -205,7 +206,7 @@ $(document).ready(function() {
 
     $("#delete_role_agent_btn").click(function() { //user clicks button
         console.log("DELET ROLE AGENT IS CALLED");
-
+        $('#res_server_del_div').empty();
         var agent_name = $('#delete_role_agent').val();
         var role = $('#delete_role_role').val();
         console.log("agent_name is " + agent_name);
@@ -233,7 +234,7 @@ $(document).ready(function() {
 
     $("#update_agent_role_btn").click(function() { //user clicks button
         console.log("Update ROLE AGENT IS CALLED");
-
+        $('#res_server_del_div').empty();
         var agent_name = $('#delete_role_agent').val();
         var role = $('#delete_role_role').val();
         console.log("agent_name is " + agent_name);
@@ -261,7 +262,7 @@ $(document).ready(function() {
 
     $("#get_role_agent").click(function() { //user clicks button
         console.log("GET USER'S ROLE IS CALLED");
-
+        $('#res_server_get_roles_agent_div').empty();
         var get_agent_name = $('#get_agent_name').val();
         console.log("agent_name is " + get_agent_name);
         console.log("http://" + ip + "/get/agent/roles");
