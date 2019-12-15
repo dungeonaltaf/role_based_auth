@@ -3,6 +3,7 @@ var mysql = require("mysql");
 const bodyparser = require("body-parser");
 var urlencoder = bodyparser.urlencoded({ extended: true });
 var app = express();
+var async = require("async");
 
 const args = require("minimist")(process.argv.slice(2));
 const port = args["port"];
@@ -211,10 +212,22 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                     var num_rows = result_role_name.length;
 
                     console.log("numbers of rows to iterate" + num_rows);
-                    for (var irr = 0; irr < num_rows; ++irr) {
+
+
+
+
+
+
+                    async.forEachOf(result_role_name, function(dataElement, irr, inner_callback) {
+
+
+
+
+
 
                         console.log("Value of i =" + irr);
                         console.log(irr);
+                        console.log(result_role_name[irr].role_name);
                         conn.query(
                             select_uid_role, [uid, result_role_name[irr].role_name],
                             function(err, result, field) {
@@ -237,7 +250,7 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                                         console.log("value of i=" + irr);
                                         console.log("Entered if->else");
                                         console.log("i before check is" + irr);
-                                        if (irr == (num_rows)) {
+                                        if (irr == (result_role_name.length - 1)) {
                                             console.log("i is" + irr);
                                             console.log("even last role's wasn't permitted");
                                             req.end("NotPermitted");
@@ -245,7 +258,6 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                                             permission_string = "Not Permitted";
                                             console.log(permission_string);
                                         }
-                                        console.log('');
                                         console.log('');
                                     }
                                 } else {
@@ -257,7 +269,8 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                         console.log(" ");
 
 
-                    }
+
+                    })
 
                 } else {
                     console.log(err);
@@ -282,32 +295,30 @@ app.post("/delete/role/role", cors(), urlencoder, function(req, res) {
     var delete_role_from_permission_query =
         "DELETE FROM resource_permission where role_name = ?";
     conn.query(delete_role_from_permission_query, [role], function(err, result, field) {
-        if (!err && result.affectedRows > 0) {
+        if (!err) {
             console.log("delete result from resource" + result);
-            var delete_role_from_agent_query = "DELETE FROM agent_role where Role= ?";
-            conn.query(delete_role_from_agent_query, [role], function(
-                err,
-                result1,
-                field
-            ) {
-                if (!err) {
-                    console.log(result1);
-                    if (result1.affectedRows > 0) {
-                        res.end("Role Deleted");
-                    } else {
-                        res.end("Deleted! Note: It wasn't assigned to any user");
-                    }
-                } else {
-                    console.log(err);
-                }
-            });
         } else {
-            res.end("No such role in system")
             console.log(err);
         }
     });
 
-
+    var delete_role_from_agent_query = "DELETE FROM agent_role where Role= ?";
+    conn.query(delete_role_from_agent_query, [role], function(
+        err,
+        result,
+        field
+    ) {
+        if (!err) {
+            console.log(result);
+            if (result.affectedRows > 0) {
+                res.end("Role Deleted");
+            } else {
+                res.end("There is no such Role");
+            }
+        } else {
+            console.log(err);
+        }
+    });
 });
 
 app.post("/delete/role/agent", cors(), urlencoder, function(res, req) {
