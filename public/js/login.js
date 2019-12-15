@@ -3,10 +3,11 @@ $(document).ready(function() {
 
     var count_role = 2;
     var count_permission = 2;
-
+    console.log("count_permission" + count_permission);
     var ip = window.location.origin;
     console.log("ip is" + ip);
-
+    document.getElementById("remove_more_privilege").disabled = true;
+    document.getElementById("remove_role").disabled = true;
     $('#ServerForm').hide();
     $('#AddUserForm').hide();
     $('#NewRoleForm').hide();
@@ -16,7 +17,9 @@ $(document).ready(function() {
     $('#DeleteRoleRoleForm').hide();
 
 
-    $("#add_user").click(function() { //user clicks button
+    $("#add_user").click(function() {
+        count_role = 2;
+        //user clicks button
         console.log("Button signin is clicke");
         $('#res_server_add_user_list').empty();
         var agent_name = $('#agent_name').val();
@@ -27,7 +30,7 @@ $(document).ready(function() {
         for (var i = 0; i < length; i++) {
             role[i] = $('#role' + (i + 1)).val();
             console.log(role[i]);
-            count_role = 2;
+
         }
 
         $.ajax({
@@ -48,28 +51,43 @@ $(document).ready(function() {
             console.log(response);
         });
 
+
+        for (var i = 0; i < length; i++) {
+            $('#role' + (i + 1)).val('');
+        }
+
+        function myFunction() {
+            console.log("entered into timer function reset");
+            location.reload(true);
+
+        }
+        document.getElementById("add_user").disabled = true;
+        setTimeout(myFunction, 2000);
+        setTimeout(console.log("the function is working fine"), 1);
+
+
     });
 
     $("#submit_privilege").click(function() { //user clicks button
         console.log("Button signin is clicke");
-        count_role = 2;
+        count_permission = 2;
         $('#res_server_add_permission').empty();
         var role_name = $('#role_name').val();
         var $permission = $('.permission');
         var $resoruce = $('.resource')
         var permission_length = $permission.length;
-        console.log(permission_length);
+        console.log("permission data length" + permission_length);
         var permission = [];
         for (var i = 0; i < permission_length; i++) {
             permission[i] = $('#permission' + (i + 1)).val();
-            console.log(permission[i]);
+            console.log("permission is=" + permission[i]);
         }
         var resource_length = $resoruce.length;
         console.log(resource_length);
         var resource = [];
         for (var i = 0; i < resource_length; i++) {
             resource[i] = $('#resource' + (i + 1)).val();
-            console.log(resource[i]);
+            console.log("resource is" + resource[i]);
         }
 
 
@@ -91,6 +109,26 @@ $(document).ready(function() {
             document.getElementById('res_server_add_permission').appendChild(insert_permit);
             console.log(response);
         });
+
+        for (var i = 0; i < permission_length; i++) {
+            $('#permission' + (i + 1)).val('');
+            console.log("permission is=" + permission[i]);
+        }
+        var resource_length = $resoruce.length;
+        console.log(resource_length);
+        var resource = [];
+        for (var i = 0; i < resource_length; i++) {
+            $('#resource' + (i + 1)).val('');
+            console.log("resource is" + resource[i]);
+        }
+
+        function myFunction() {
+            console.log("entered into timer function reset");
+            location.reload(true);
+
+        }
+        document.getElementById("submit_privilege").disabled = true;
+        setTimeout(myFunction, 2000);
 
     });
 
@@ -125,14 +163,35 @@ $(document).ready(function() {
         console.log(document.getElementById(li3.id).appendChild(label_role));
         console.log(document.getElementById(li3.id).appendChild(newInput));
         console.log(document.getElementById(li3.id).appendChild(span_role));
+        if (count_role > 2) {
+            document.getElementById("remove_role").disabled = false;
+        }
+
+    });
+
+    $("#remove_role").click(function() {
+
+        var li3ID = "li3" + (count_role - 1);
+        console.log("li id is" + li3ID);
+        $("#" + li3ID).remove();
+
+
+        count_role--;
+        if (count_role == 2) {
+            document.getElementById("remove_role").disabled = true;
+        }
+
 
     });
 
     $("#add_more_privilege").click(function() {
+
+        console.log("countpermission" + count_permission);
         var newPermission = document.createElement("input");
         newPermission.type = "text";
         newPermission.name = "permission" + count_permission;
         newPermission.id = "permission" + count_permission;
+        console.log("newPermission id=" + newPermission.id);
         newPermission.className = "permission";
 
 
@@ -140,6 +199,7 @@ $(document).ready(function() {
         newResoruce.type = "text";
         newResoruce.name = "resource" + count_permission;
         newResoruce.id = "resource" + count_permission;
+        console.log("newResource id=" + newResoruce.id);
         newResoruce.className = "resource";
 
 
@@ -147,6 +207,7 @@ $(document).ready(function() {
         li.id = "li" + count_permission;
         var li1 = document.createElement("li");
         li1.id = "li1" + count_permission;
+        console.log("liID" + li.id);
 
         var label_resource = document.createElement("label");
         label_resource.innerText = "Resource";
@@ -159,6 +220,7 @@ $(document).ready(function() {
         var span_resource = document.createElement("span");
         span_resource.innerText = "Add Resource to it";
 
+
         count_permission++;
         console.log(count_permission);
         document.getElementById('add_res_list').appendChild(li);
@@ -170,6 +232,31 @@ $(document).ready(function() {
         document.getElementById(li.id).appendChild(span_resource);
         document.getElementById(li1.id).appendChild(span_permission);
 
+        if (count_permission > 2) {
+            document.getElementById("remove_more_privilege").disabled = false;
+        }
+
+    });
+
+    $("#remove_more_privilege").click(function() {
+        console.log("remove button is called");
+        console.log("remove more privilege");
+        console.log("count permission is" + count_permission - 1);
+
+        var li1ID = "li1" + (count_permission - 1);
+        console.log("li id is" + li1ID);
+        $("#" + li1ID).remove();
+
+
+        var liID = "li" + (count_permission - 1);
+        console.log("li id is" + liID);
+        $("#" + liID).remove();
+
+        count_permission--;
+
+        if (count_permission == 2) {
+            document.getElementById("remove_more_privilege").disabled = true;
+        }
 
     });
 
@@ -201,6 +288,9 @@ $(document).ready(function() {
             document.getElementById('res_server_div').appendChild(res);
             console.log(response);
         });
+
+        $('#search_permission').val('');
+        $('#search_resource').val('');
 
     });
 
@@ -291,6 +381,7 @@ $(document).ready(function() {
     });
 
     $("#del_role_role").click(function() { //user clicks button
+
         console.log("DELETE  ROLE COMPLETELY IS CALLED");
 
         var del_role_role = $('#del_role_role_name').val();
@@ -312,6 +403,7 @@ $(document).ready(function() {
             document.getElementById('res_server_del_role_role_div').appendChild(res);
             console.log(response);
         });
+        $('#res_server_del_role_role_div').empty();
 
     });
 

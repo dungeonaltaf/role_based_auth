@@ -60,42 +60,56 @@ app.post("/post/insert/agent/", cors(), urlencoder, function(req, res) {
     ) {
         if (!err) {
             console.log(result);
-        } else {
-            console.log(err);
-        }
-    });
-
-    var select_uid_query = "SELECT UID from agent_name where agent_name = ?";
-    conn.query(select_uid_query, [agent_name], function(err, result, field) {
-        if (!err) {
-            console.log("The result id of agent is" + result[0].UID);
-            agent_uid = result[0].UID;
-
-        } else {
-            console.log(err);
-        }
-
-        //the insertion loop in agent_role
-        for (var i = 0; i < role_length; i++) {
-            var insert_role_query = "INSERT INTO agent_role(UID, Role) values(? , ?)";
-            console.log("agent uid is " + agent_uid);
-            conn.query(insert_role_query, [agent_uid, role_name[i]], function(
-                err,
-                result,
-                field
-            ) {
+            var select_uid_query = "SELECT UID from agent_name where agent_name = ?";
+            conn.query(select_uid_query, [agent_name], function(err, result, field) {
                 if (!err) {
-                    console.log(result);
-                    //    res.send("User Added");
+                    console.log("The result id of agent is" + result[0].UID);
+                    agent_uid = result[0].UID;
+
+                    for (var i = 0; i < role_length; i++) {
+                        var insert_role_query = "INSERT INTO agent_role(UID, Role) values(? , ?)";
+                        console.log("agent uid is " + agent_uid);
+                        conn.query(insert_role_query, [agent_uid, role_name[i]], function(
+                            err,
+                            result,
+                            field
+                        ) {
+                            if (!err) {
+                                console.log(result);
+                                res.end("User Added");
+                            } else {
+                                console.log(err);
+                                res.end("Couldn't add user");
+                            }
+                        });
+                    }
+
+
+
                 } else {
+                    console.log("THIS IS ERROR REPORTED");
+
                     console.log(err);
+
+                    console.log("");
+                    console.log("");
+
                 }
+
             });
+
+
+        } else {
+            console.log(err);
+            res.send("The system has the user already.Please go to update section");
         }
     });
+
+
 });
 
 app.post("/post/insert/permission", cors(), urlencoder, function(req, res) {
+
     console.log(req.body.role_name);
     console.log("resources are=" + req.body.resource);
     console.log("permissions are= " + req.body.permission);
@@ -142,6 +156,8 @@ app.post("/post/insert/permission", cors(), urlencoder, function(req, res) {
     res.end("Resource added with permission");
 });
 
+
+
 app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
     var permission_string;
 
@@ -176,7 +192,9 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                     result_role_name.length
                 );
                 if (!err && result_role_name.length > 0) {
-                    console.log(result_role_name[0].role_name);
+
+
+                    console.log("role_name" + result_role_name[0].role_name);
                     console.log(
                         "The uid of the select  uid from agent_name where agent_name=? == " +
                         result_uid[0].UID
@@ -185,38 +203,50 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
                     console.log(
                         "Query executed :: select role_name from resource permission where resource = ? and permission=?"
                     );
+
+
+
                     var select_uid_role =
                         "SELECT COUNT(UID) as Count from agent_role where uid =? and role = ?";
                     var num_rows = result_role_name.length;
 
                     console.log("numbers of rows to iterate" + num_rows);
-                    for (var i = 0; i < num_rows; ++i) {
+                    for (var irr = 0; irr < num_rows; ++irr) {
 
-                        console.log("Value of i =" + i);
-                        console.log(i);
+                        console.log("Value of i =" + irr);
+                        console.log(irr);
                         conn.query(
-                            select_uid_role, [uid, result_role_name[i].role_name],
+                            select_uid_role, [uid, result_role_name[irr].role_name],
                             function(err, result, field) {
-
+                                console.log("value of i before err check =" + irr);
                                 if (!err) {
                                     console.log("result is" + result);
                                     console.log("result count is" + result[0].Count);
-
+                                    console.log("value of i inside if(!err)=" + irr);
                                     if (result[0].Count >= 1) {
+                                        console.log("Entered if->if");
+                                        console.log("value of i" + irr);
                                         console.log("Query approved");
                                         permission_string = "Permitted";
 
                                         console.log(permission_string);
+                                        console.log('');
+                                        console.log('');
                                         req.end(permission_string);
                                     } else {
-                                        console.log("i before check is" + i);
-                                        if (i == (num_rows - 1)) {
-                                            console.log("i is" + i);
+                                        console.log("value of i=" + irr);
+                                        console.log("Entered if->else");
+                                        console.log("i before check is" + irr);
+                                        if (irr == (num_rows)) {
+                                            console.log("i is" + irr);
+                                            console.log("even last role's wasn't permitted");
                                             req.end("NotPermitted");
                                         } else {
                                             permission_string = "Not Permitted";
                                             console.log(permission_string);
                                         }
+                                        console.log('');
+                                        console.log('');
                                     }
                                 } else {
                                     console.log(err);
@@ -242,6 +272,9 @@ app.post("/post/find/userpermit/", cors(), urlencoder, function(res, req) {
     console.log("permission_string is=" + permission_string);
 });
 
+
+
+
 app.post("/delete/role/role", cors(), urlencoder, function(req, res) {
     var role = req.body.role;
     console.log(req.body);
@@ -249,30 +282,32 @@ app.post("/delete/role/role", cors(), urlencoder, function(req, res) {
     var delete_role_from_permission_query =
         "DELETE FROM resource_permission where role_name = ?";
     conn.query(delete_role_from_permission_query, [role], function(err, result, field) {
-        if (!err) {
+        if (!err && result.affectedRows > 0) {
             console.log("delete result from resource" + result);
+            var delete_role_from_agent_query = "DELETE FROM agent_role where Role= ?";
+            conn.query(delete_role_from_agent_query, [role], function(
+                err,
+                result1,
+                field
+            ) {
+                if (!err) {
+                    console.log(result1);
+                    if (result1.affectedRows > 0) {
+                        res.end("Role Deleted");
+                    } else {
+                        res.end("Deleted! Note: It wasn't assigned to any user");
+                    }
+                } else {
+                    console.log(err);
+                }
+            });
         } else {
+            res.end("No such role in system")
             console.log(err);
         }
     });
 
-    var delete_role_from_agent_query = "DELETE FROM agent_role where Role= ?";
-    conn.query(delete_role_from_agent_query, [role], function(
-        err,
-        result,
-        field
-    ) {
-        if (!err) {
-            console.log(result);
-            if (result.affectedRows > 0) {
-                res.end("Role Deleted");
-            } else {
-                res.end("There is no such Role");
-            }
-        } else {
-            console.log(err);
-        }
-    });
+
 });
 
 app.post("/delete/role/agent", cors(), urlencoder, function(res, req) {
