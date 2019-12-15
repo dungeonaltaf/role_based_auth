@@ -295,30 +295,33 @@ app.post("/delete/role/role", cors(), urlencoder, function(req, res) {
     var delete_role_from_permission_query =
         "DELETE FROM resource_permission where role_name = ?";
     conn.query(delete_role_from_permission_query, [role], function(err, result, field) {
-        if (!err) {
+
+        if (!err && result.affectedRows > 0) {
             console.log("delete result from resource" + result);
+            var delete_role_from_agent_query = "DELETE FROM agent_role where Role= ?";
+            conn.query(delete_role_from_agent_query, [role], function(
+                err,
+                result1,
+                field
+            ) {
+                if (!err) {
+                    console.log(result1);
+                    if (result1.affectedRows > 0) {
+                        res.end("Role Deleted");
+                    } else {
+                        res.end("Deleted! Note: It wasn't assigned to any user");
+                    }
+                } else {
+                    console.log(err);
+                }
+            });
         } else {
+            res.end("No such role in system")
             console.log(err);
         }
     });
 
-    var delete_role_from_agent_query = "DELETE FROM agent_role where Role= ?";
-    conn.query(delete_role_from_agent_query, [role], function(
-        err,
-        result,
-        field
-    ) {
-        if (!err) {
-            console.log(result);
-            if (result.affectedRows > 0) {
-                res.end("Role Deleted");
-            } else {
-                res.end("There is no such Role");
-            }
-        } else {
-            console.log(err);
-        }
-    });
+
 });
 
 app.post("/delete/role/agent", cors(), urlencoder, function(res, req) {
